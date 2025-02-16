@@ -1,0 +1,29 @@
+name: Tosca CI /CD Demo
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  
+  test:
+    # The type of runner that the job will run on
+    runs-on: self-hosted
+    
+    
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Runs a single command using the runners shell
+      - name: Run automated tests
+        run: C:\GitHub-Runner\tosca_execution_client.ps1 -toscaServerUrl "https://prdtos01.qbsa.local:443" -events '["Aakash_Dex"]' -projectName "QBCC_Workspace" -resultsFileName "results.xml" -clientId "nmOkttterkawR-rP9_f-bQ" -clientSecret "YFswZ5F_dEGbZxIZmLJuBwClSfRsjDBkeog7hhopkYNA"
+        
+   
+  
+      - name: Publish Test Report
+        uses: mikepenz/action-junit-report@v3
+        if: success() || failure()
+        with:
+          report_paths: 'C:\\GitHub-Runners\\results\\results.xml'
+          github_token: ${{ secrets.GITHUB_TOKEN }}
