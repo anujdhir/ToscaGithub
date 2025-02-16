@@ -1,0 +1,16 @@
+name: Scheduled Workflow
+
+on:
+  schedule:
+    - cron: '35 17 * * 1'  # Runs every Monday at 5:35 PM UTC
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Run a script or action
+        run: echo "This action runs every Monday at 5:35 PM UTC!"
